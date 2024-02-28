@@ -37,6 +37,10 @@ const authOptions: AuthOptions = {
               throw new Error("Invalid password");
             } else if (res.error === "invalid_user") {
               throw new Error("Invalid user");
+            }  else if (res.error === "unauthorized"){
+              throw new Error("unauthorized");
+            }  else if (res.error === "throw_error"){
+              throw new Error("400");
             } else {
               return { ...res };
             }

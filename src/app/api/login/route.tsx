@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
 
     if (!username || !password) {
       return NextResponse.json(
-        { message: "Missing username or password" },
+        {message: "Missing username or password" },
         { status: 400 }
       );
     }
@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     console.error("Error:", error);
     return NextResponse.json(
-      { message: "Internal server error" },
+      {message: "Internal server error" },
       { status: 500 }
     );
   }

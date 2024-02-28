@@ -12,6 +12,8 @@ export default function Login() {
   const [isLogged, setIsLogged] = useState<boolean>(false);
   const [isPassInvalid, seIsPassInvalid] = useState<boolean>(false);
   const [invalidUser, setInvalidUser] = useState<boolean>(false);
+  const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
+
   const [formData, setFormData] = useState<{
     username: string;
     password: string;
@@ -39,6 +41,10 @@ export default function Login() {
         seIsPassInvalid(true);
       } else if (res?.error === "Invalid user") {
         setInvalidUser(true);
+      } else if (res?.error === "unauthorized") {
+        setIsAuthorized(true);
+      } else if (res?.error === "Unknown error") {
+        setIsAuthorized(true);
       } else {
         setIsLogged(true);
       }
@@ -62,7 +68,7 @@ export default function Login() {
     if (isLogged) {
       console.log("login..");
       setTimeout(() => {
-        push("/Private");
+        push("/private");
       }, 5400);
     }
   }, [isPassInvalid, invalidUser, isLogged]);
@@ -77,15 +83,16 @@ export default function Login() {
           <>
             <div className="w-full flex flex-col items-center">
               <h1 className="text-center text-blue-500 font-bold text-3xl">
-                RS
+                TOP
               </h1>
               <span className="text-gray-500 text-center">
                 login into the system
               </span>
+            
             </div>
-            <div className="w-full flex flex-col gap-2">
+            <div className="w-full flex flex-col gap-2">  
               <div className="w-full relative">
-                <input
+                <input  
                   className={`${inputStyle} ${
                     isPassInvalid && "border-orange-600"
                   }`}
@@ -97,6 +104,7 @@ export default function Login() {
                   }
                 />
                 {invalidUser && <UserErrorMessage />}
+               
               </div>
 
               <div className="w-full relative">
@@ -112,8 +120,12 @@ export default function Login() {
                   }
                 />
                 {isPassInvalid && <PasswordErrorMessage />}
+                {isAuthorized && <UnauthorizedMessage />}
+               
+                
               </div>
             </div>
+           
             <button
               className="w-fit py-2 px-3 rounded-md bg-blue-500 self-center text-white hover:opacity-[0.8] cursor-pointer"
               onClick={(e: any) => onSubmit(e)}
@@ -139,8 +151,16 @@ const PasswordErrorMessage = () => {
 
 const UserErrorMessage = () => {
   return (
-    <div className="absolute w-full bottom-[-2em] bg-orange-500 text-white text-[12px] p-2 rounded-md rounded-tl-none rounded-tr-none z-50">
+    <div className="absolute w-full bottom-[-2em] bg-red-500 text-white text-[12px] p-2 rounded-md rounded-tl-none rounded-tr-none z-50">
       <h1>Invalid user. Try it again</h1>
+    </div>
+  );
+};
+
+const UnauthorizedMessage = () => {
+  return (
+    <div className="absolute w-full bottom-[-2em] bg-orange-500 text-white text-[12px] p-2 rounded-md rounded-tl-none rounded-tr-none z-50">
+      <h1>Unauthorized. Try it again</h1>
     </div>
   );
 };
