@@ -5,7 +5,7 @@ const fakeUser = {
   username: "t",
   password: "123",
 };
-const endpoint = "http://localhost:3000/api/login";
+const endpoint = "https://next-pgsql.vercel.app/api/login";
 
 export const authenticate = async (credentials: {
   username: string;
@@ -14,7 +14,7 @@ export const authenticate = async (credentials: {
   const { username, password } = credentials;
 
   try {
-    const response = await axios.post<any,any>(
+    const response = await axios.post<any, any>(
       endpoint,
       JSON.stringify(credentials), // Send credentials as JSON string
       {
@@ -23,19 +23,22 @@ export const authenticate = async (credentials: {
         },
       }
     );
-   // console.log(response.status);
- 
-    if (response.status === 200 ) {
-      const accessToken = jwt.sign({ username: response.data.data.username }, secretKey, {
-        expiresIn: "1h",
-      });
+    // console.log(response.status);
+
+    if (response.status === 200) {
+      const accessToken = jwt.sign(
+        { username: response.data.data.username },
+        secretKey,
+        {
+          expiresIn: "1h",
+        }
+      );
       return {
         status: 202,
         token: accessToken,
         username: response.data.data.username,
       };
     } else if (response.status === 401) {
-      
       return {
         status: 401,
         error: "invalid_password",
@@ -46,17 +49,14 @@ export const authenticate = async (credentials: {
         error: "invalid_user",
       };
     }
-  } catch (error : any) {
+  } catch (error: any) {
     console.error("API Error:", error);
     if (error.response.status === 401) {
-        return  { status: 401,
-                  error: "unauthorized"}
+      return { status: 401, error: "unauthorized" };
     } else {
-        return  { status: 401,
-                  error: "invalid_user"}
-    };
-    
-    //throw new Error("throw_error");
+      return { status: 401, error: "invalid_user" };
+    }
 
+    //throw new Error("throw_error");
   }
 };
