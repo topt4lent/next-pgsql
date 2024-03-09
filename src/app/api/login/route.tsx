@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sql } from "@vercel/postgres";
+import { sign } from "jsonwebtoken"; // Import the JWT library
 
 export async function POST(req: NextRequest) {
   if (req.method !== "POST") {
@@ -14,21 +15,31 @@ export async function POST(req: NextRequest) {
 
     if (!username || !password) {
       return NextResponse.json(
-        {message: "Missing username or password" },
+        { message: "Missing username or password" },
         { status: 400 }
       );
     }
 
     const result: any = await sql`
-  SELECT username, name
-  FROM Users
-  WHERE Username = ${username} AND Password = ${password}
-`;
+      SELECT username, name
+      FROM Users
+      WHERE Username = ${username} AND Password = ${password}
+    `;
 
     if (result.rowCount === 1) {
       const user = result.rows[0];
+
+      // Assuming you have a secret key for signing the JWT
+      const secretKey: any = process.env.NEXTAUTH_SECRET;
+
+      // Sign the JWT token
+      const token = sign(
+        { username: user.username, name: user.name },
+        secretKey
+      );
+
       return NextResponse.json(
-        { message: "success", data: user },
+        { message: "success", data: user, token },
         { status: 200 }
       );
     } else {
@@ -40,7 +51,7 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     console.error("Error:", error);
     return NextResponse.json(
-      {message: "Internal server error" },
+      { message: "Internal server error" },
       { status: 500 }
     );
   }

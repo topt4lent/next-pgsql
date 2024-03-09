@@ -9,10 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@arcgis/core": "^4.29.6",
     "@types/jsonwebtoken": "^9.0.5",
     "@types/next-auth": "^3.15.0",
     "@vercel/postgres": "^0.7.2",
     "axios": "^1.6.7",
+    "esri-loader": "^3.7.0",
     "jsonwebtoken": "^9.0.2",
     "next": "14.1.0",
     "next-auth": "^4.24.6",

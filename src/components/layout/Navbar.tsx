@@ -9,16 +9,26 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="w-full bg-lime-400 px-5 py-3 border-b border-stone-700 dark:bg-black">
+      <nav className="w-full bg-black  px-5 py-3 border-b border-stone-700 dark:bg-black">
         <div className="flex justify-between items-center">
           <div className="flex left"></div>
           <div className="flex">
             <ul className="flex">
               <li className="m-2">
-                <Link href="/private/home">Home</Link>
+                <Link
+                  className="text-stone-400 dark:text-indigo-400"
+                  href="/private/home"
+                >
+                  Home
+                </Link>
               </li>
               <li className="m-2">
-                <Link href="/login">Private</Link>
+                <Link
+                  className="text-stone-400 dark:text-indigo-400"
+                  href="/private"
+                >
+                  Private
+                </Link>
               </li>
             </ul>
           </div>

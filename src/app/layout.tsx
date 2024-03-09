@@ -18,9 +18,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <head>
+        {" "}
+        <link
+          rel="stylesheet"
+          href="https://js.arcgis.com/4.24/esri/themes/light/main.css"
+        />
+      </head>
+      <body className={`${inter.className} bg-black dark:bg-black`}>
         <Header />
         <Navbar />
+
         {children}
       </body>
     </html>
