@@ -1,11 +1,11 @@
 import jwt from "jsonwebtoken";
 import axios from "axios";
-const secretKey = "createAGenericToken";
+//const secretKey : string | undefined = process.env.NEXTAUTH_SECRET;
 const fakeUser = {
   username: "t",
   password: "123",
 };
-const endpoint = "/api/login";
+const endpoint = "http://localhost:3000/api/login";
 
 export const authenticate = async (credentials: {
   username: string;
@@ -23,16 +23,10 @@ export const authenticate = async (credentials: {
         },
       }
     );
-    // console.log(response.status);
+    console.log(response);
 
     if (response.status === 200) {
-      const accessToken = jwt.sign(
-        { username: response.data.data.username },
-        secretKey,
-        {
-          expiresIn: "1h",
-        }
-      );
+      const accessToken = response.data.token;
       return {
         status: 202,
         token: accessToken,
@@ -51,6 +45,7 @@ export const authenticate = async (credentials: {
     }
   } catch (error: any) {
     console.error("API Error:", error);
+    console.error("API Error:", error.code);
     if (error.response.status === 401) {
       return { status: 401, error: "unauthorized" };
     } else {
