@@ -76,7 +76,7 @@ const MapComponent: React.FC = () => {
     }
   };
 
-  const modalRef = useRef(null);
+  const modalRef = useRef<HTMLDivElement>(null);
 
   const initializeMap = async () => {
     try {
