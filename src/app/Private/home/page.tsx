@@ -1,6 +1,6 @@
 "use client";
 import { signOut } from "next-auth/react";
-import { Map, Scene, WebScene } from "@esri/react-arcgis";
+
 import { useState } from "react";
 
 export default function Home() {
