@@ -18,35 +18,35 @@ interface TokenData {
   username: string;
 }
 
-function generateToken(data: TokenData): string {
-  return jwt.sign(data, secretKey, { expiresIn: "1h" });
-}
+// function generateToken(data: TokenData): string {
+//   return jwt.sign(data, secretKey, { expiresIn: "1h" });
+// }
 
-function verifyToken(token: string): TokenData | null {
-  try {
-    const decoded = jwt.verify(token, secretKey) as TokenData;
-    return decoded;
-  } catch (error) {
-    return null;
-  }
-}
-function protectRoute(req: any) {
-  const token: any = req.headers.authorization;
+// function verifyToken(token: string): TokenData | null {
+//   try {
+//     const decoded = jwt.verify(token, secretKey) as TokenData;
+//     return decoded;
+//   } catch (error) {
+//     return null;
+//   }
+// }
+// function protectRoute(req: any) {
+//   const token: any = req.headers.authorization;
 
-  if (!token) {
-    throw new Error("Authorization token is missing");
-  }
+//   if (!token) {
+//     throw new Error("Authorization token is missing");
+//   }
 
-  const decoded = verifyToken(token);
+//   const decoded = verifyToken(token);
 
-  if (!decoded) {
-    throw new Error("Invalid token");
-  }
+//   if (!decoded) {
+//     throw new Error("Invalid token");
+//   }
 
-  req.user = decoded;
+//   req.user = decoded;
 
-  return true;
-}
+//   return true;
+// }
 
 export async function GET(request: Request) {
   try {
