@@ -5,7 +5,7 @@ const fakeUser = {
   username: "t",
   password: "123",
 };
-const endpoint = "http://localhost:3000/api/login";
+const endpoint = "https://next-pgsql.vercel.app/api/login";
 
 export const authenticate = async (credentials: {
   username: string;
