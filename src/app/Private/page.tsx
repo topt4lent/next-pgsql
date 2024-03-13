@@ -7,7 +7,7 @@ import MapComponent from "./MapComponent";
 //import PointMark from "./PointMark";
 //import Layer from "./Layer";
 
-export default function Home(props: any) {
+export default function Private(props: any) {
   // const [status, setStatus] = useState<S>({ status: null });
   // interface S {
   //   status: string | null;

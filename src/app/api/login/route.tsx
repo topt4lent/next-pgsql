@@ -3,7 +3,7 @@ import { sql } from "@vercel/postgres";
 import { sign } from "jsonwebtoken"; // Import the JWT library
 
 export async function POST(req: NextRequest) {
-  if (req.method !== "POST") {
+  if (req.method !== "POST" && req.method !== "post") {
     return NextResponse.json(
       { message: "Method not allowed" },
       { status: 405 }
